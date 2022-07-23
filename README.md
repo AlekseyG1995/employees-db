@@ -1,46 +1,36 @@
-# Getting Started with Create React App
+# Employee DB (test frontend task)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<details>
+<summary><b>Описание тестового задания</b>(под катом)</summary>
+Необходимо разработать одностраничное приложение для возможности просмотра и редактирования данных сотрудников компании. Внешний вид приложе	ния зависит от вас. Верстка должна быть адаптивной и корректно отображаться на разных устройствах.
+Ниже описан формат данных.
 
-## Available Scripts
 
-In the project directory, you can run:
+```
+"id": 1,
+"name": "Иван Иванов",
+"isArchive": false,
+"role": "driver",
+"phone": "+7 (900) 123-4567",
+"birthday": "01.01.1990"
+```
 
-### `npm start`
+_Логика работы_
+1. При открытии приложения мы должны увидеть список сотрудников и форму для их фильтрации. У каждого из сотрудников в списке должны отображаться его имя, должность и номер телефона. Должна существовать возможность сортировки списка сотрудников по имени и дате рождения. Фильтровать сотрудников нужно по их должности и их статусу. Должность - выпадающий список, содержащий (Frontend, Backend, Tester). Статус - чекбокс с лейблом "в архиве".
+2. При нажатии в списке на одного из сотрудников должна появиться страница с формой редактирования данных сотрудника. Форма редактирования должна иметь поля: имя сотрудника - текстовое поле, телефон - текстовое поле с маской, дата рождения - текстовое поле с маской, должность - выпадающий список, содержащий (Повар, Официант, Водитель), статус - чекбокс с лейблом "в архиве".
+3. Приложение должно предусматривать добавление новых сотрудников в систему.
+4. Приложение так же должно поддерживать роутинг (browser history).
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+_Требуемые технологии_
+1. Фронтенд фреймворк - ReactJS. Роутер - react-router, либо любой другой подходящий для вас (можно свой).  Если не знаете react, то можете взять любой другой фреймворк.
+2. Применение css препроцессоров SASS (SCSS), PostCss, ...
+3. CSS фреймворк на ваше усмотрение.
+4. Большим плюсом будет использование в разработке webpack, webpack hot module replacement.
+5. Использовать Redux при разработке.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+_Требования к исходному коду_
+ 1. Код должен быть легко читаем.
+ 2. Особых требований к структуре проекта не предъявляется, требуется лишь чтобы присутствовала разбивка на модули.
+ 3. Приложение должно быть устойчиво к ошибкам пользователя и выдавать понятные и информативные сообщения об ошибках.
+ 4. Приложение должно поддерживать протоколирование (в консоль) основных событий, отладочных событий и сообщений об ошибках.
+</details>
