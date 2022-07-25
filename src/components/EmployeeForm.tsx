@@ -1,9 +1,9 @@
 import { rolesList } from "../models/rolesList"
-import { useForm, SubmitHandler } from "react-hook-form"
+import { useForm, SubmitHandler, Controller } from "react-hook-form"
 import { validationRules } from "../utils/validationRules"
 import { FC } from "react"
 import { IEmployeeDTO } from "../models/employee.dto"
-
+import { IMaskInput } from "react-imask"
 
 interface IFormInputs {
   firstName: string
@@ -17,29 +17,36 @@ interface EmployeeFormProps {
   addEmployee: (employee: IEmployeeDTO) => void
 }
 
-export const EmployeeForm:FC<EmployeeFormProps> = ({addEmployee}) => {
+export const EmployeeForm: FC<EmployeeFormProps> = ({ addEmployee }) => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
+    control,
   } = useForm<IFormInputs>()
-  const onSubmit: SubmitHandler<IFormInputs> =async (data: IFormInputs) => {
-    const [year, month, day] = data.dob.split('-')
-    const employeeDTO:IEmployeeDTO = {
+  const onSubmit: SubmitHandler<IFormInputs> = async (data: IFormInputs) => {
+    const [year, month, day] = data.dob.split("-")
+    const employeeDTO: IEmployeeDTO = {
       name: `${data.firstName} ${data.lastName}`,
       role: data.role,
+      isArchive: false,
       phone: data.phone.trim(),
-      birthday: `${day}.${month}.${year}` // convert Date of Birthday to pattern
+      birthday: `${day}.${month}.${year}`, // convert Date of Birthday to pattern
     }
-    console.log(employeeDTO)
-    const responce = await addEmployee(employeeDTO)
-    console.log('!!!', responce);
-    
+    try {
+      const response = await addEmployee(employeeDTO)
+      console.log("[task-log] Employee has been added!", response)
+      reset()
+    } catch (e) {
+      console.error("[task-log] Employee has not been added!", e)
+      alert("Something went wrong!")
+    }
   }
 
   return (
     <>
-      <form className="form" action="" onSubmit={handleSubmit(onSubmit)}>
+      <form className="form w-[30vw]" action="" onSubmit={handleSubmit(onSubmit)}>
         <div className="form-firstname">
           <label className="text-sm">
             First name
@@ -77,7 +84,12 @@ export const EmployeeForm:FC<EmployeeFormProps> = ({addEmployee}) => {
         <div className="form_phone">
           <label className="text-sm">
             Phone
-            <input className="block w-full" type="phone" {...register("phone", validationRules.phone)} />
+            <Controller
+              name="phone"
+              control={control}
+              rules={validationRules.phone}
+              render={({ field }) => <IMaskInput className="w-full" mask={"{+7} ({9}00) 000-0000"} {...field} inputRef={field.ref} />}
+            />
           </label>
           {errors.phone?.message}
         </div>
