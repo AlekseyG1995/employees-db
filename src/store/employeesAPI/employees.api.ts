@@ -4,6 +4,7 @@ import { IEmployee } from "../../models/employee.model"
 
 export const employeesApi = createApi({
   reducerPath: "employees_api",
+  tagTypes: ["Employees"],
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/" }), // may be ENV
   endpoints: (build) => ({
     getAll: build.query<IEmployee[], void>({
@@ -13,6 +14,7 @@ export const employeesApi = createApi({
           // per_page: 10,
         },
       }),
+      providesTags: ()=>["Employees"]
     }),
     add: build.mutation<IEmployee, IEmployeeDTO>({
       query: (employeeDTO: IEmployeeDTO) => ({
@@ -20,6 +22,7 @@ export const employeesApi = createApi({
         method: "POST",
         body: employeeDTO
       }),
+      invalidatesTags: ["Employees"]
     }),
     udpate: build.mutation<IEmployee, IEmployee>({
       query: (employee: IEmployee) => ({

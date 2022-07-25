@@ -1,27 +1,40 @@
 import { rolesList } from "../models/rolesList"
 import { useForm, SubmitHandler } from "react-hook-form"
 import { validationRules } from "../utils/validationRules"
+import { FC } from "react"
+import { IEmployeeDTO } from "../models/employee.dto"
 
-// const [day, month, year] = str.split('/');
-// const date = `${year}-${month}-${day}`;
 
 interface IFormInputs {
   firstName: string
   lastName: string
   role: string
-  dob: Date
+  dob: string
   phone: string
 }
 
-export const EmployeeForm = () => {
+interface EmployeeFormProps {
+  addEmployee: (employee: IEmployeeDTO) => void
+}
+
+export const EmployeeForm:FC<EmployeeFormProps> = ({addEmployee}) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<IFormInputs>()
-  const onSubmit: SubmitHandler<IFormInputs> = (data: IFormInputs) => {
-    // need change final Data
-    console.log(data)
+  const onSubmit: SubmitHandler<IFormInputs> =async (data: IFormInputs) => {
+    const [year, month, day] = data.dob.split('-')
+    const employeeDTO:IEmployeeDTO = {
+      name: `${data.firstName} ${data.lastName}`,
+      role: data.role,
+      phone: data.phone.trim(),
+      birthday: `${day}.${month}.${year}` // convert Date of Birthday to pattern
+    }
+    console.log(employeeDTO)
+    const responce = await addEmployee(employeeDTO)
+    console.log('!!!', responce);
+    
   }
 
   return (
@@ -30,28 +43,28 @@ export const EmployeeForm = () => {
         <div className="form-firstname">
           <label className="text-sm">
             First name
-            <input className="block w-full" type="text" {...register("firstName",validationRules.firstName)} />
+            <input className="block w-full" type="text" {...register("firstName", validationRules.firstName)} />
           </label>
           {errors.firstName?.message}
         </div>
         <div className="form_lastname">
           <label className="text-sm">
             Last name
-            <input className="block w-full" type="text" {...register("lastName",validationRules.lastName)} />
+            <input className="block w-full" type="text" {...register("lastName", validationRules.lastName)} />
           </label>
           {errors.lastName?.message}
         </div>
         <div className="form_dob">
           <label className="text-sm">
             Day of birthday
-            <input className="block w-full" type="date" {...register("dob",validationRules.dob)} />
+            <input className="block w-full" type="date" {...register("dob", validationRules.dob)} />
           </label>
           {errors.dob?.message}
         </div>
         <div className="form_role">
           <label className="text-sm">
             Role
-            <select defaultValue={rolesList[0]} className="block w-full" {...register("role",validationRules.role)}>
+            <select defaultValue={rolesList[0]} className="block w-full" {...register("role", validationRules.role)}>
               {rolesList.map((role) => (
                 <option key={role} value={role}>
                   {role}

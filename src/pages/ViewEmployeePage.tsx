@@ -1,8 +1,8 @@
-import React from "react"
+import React, { FC } from "react"
 import { EmployeeList } from "../components/employee/EmployeeList"
 import { useGetAllQuery } from "../store/employeesAPI/employees.api"
 
-export const ViewEmployeePage = () => {
+export const ViewEmployeePage:FC = () => {
   const { data, isError, isLoading } = useGetAllQuery()
 
   if (isLoading) return <p>Loading...</p>
