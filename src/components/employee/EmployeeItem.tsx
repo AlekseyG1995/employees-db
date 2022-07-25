@@ -1,6 +1,11 @@
+import { FC } from "react"
 import { IEmployee } from "../../models/employee.model"
 
-export const EmployeeItem = ({ employee }: { employee: IEmployee }) => {
+interface EmployeeItemProps {
+  employee : IEmployee
+}
+
+export const EmployeeItem:FC<EmployeeItemProps> = ({ employee }) => {
   return (
     <div className="border">
       <div>{employee.name}</div>
