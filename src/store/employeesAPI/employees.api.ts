@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
+import { IEmployeeDTO } from "../../models/employee.dto"
 import { IEmployee } from "../../models/employee.model"
 
 export const employeesApi = createApi({
@@ -13,18 +14,18 @@ export const employeesApi = createApi({
         },
       }),
     }),
-    add: build.query<IEmployee, IEmployee>({
-      query: (employee: IEmployee) => ({
+    add: build.mutation<IEmployee, IEmployeeDTO>({
+      query: (employeeDTO: IEmployeeDTO) => ({
         url: "employees",
         method: "POST",
-        data: employee
+        body: employeeDTO
       }),
     }),
     udpate: build.mutation<IEmployee, IEmployee>({
       query: (employee: IEmployee) => ({
         url: "employees/{id}",
         method: "PUT",
-        data: employee
+        body: employee
       }),
     }),
     delete: build.mutation<IEmployee, void>({
@@ -36,4 +37,4 @@ export const employeesApi = createApi({
   }),
 })
 
-export const {useGetAllQuery} = employeesApi
+export const {useGetAllQuery, useAddMutation} = employeesApi
