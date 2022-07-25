@@ -14,21 +14,31 @@ export const employeesApi = createApi({
           // per_page: 10,
         },
       }),
-      providesTags: ()=>["Employees"]
+      providesTags: () => ["Employees"],
     }),
     add: build.mutation<IEmployee, IEmployeeDTO>({
       query: (employeeDTO: IEmployeeDTO) => ({
         url: "employees",
         method: "POST",
-        body: employeeDTO
+        body: employeeDTO,
       }),
-      invalidatesTags: ["Employees"]
+      // invalidatesTags: ["Employees"],
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        queryFulfilled.then(({ data }) => {
+          dispatch(
+            employeesApi.util.updateQueryData("getAll", undefined, (draft) => {
+              // ... UPDATE - add ID...
+              draft.push(data)
+            })
+          )
+        })
+      },
     }),
     udpate: build.mutation<IEmployee, IEmployee>({
       query: (employee: IEmployee) => ({
         url: "employees/{id}",
         method: "PUT",
-        body: employee
+        body: employee,
       }),
     }),
     delete: build.mutation<IEmployee, void>({
@@ -40,4 +50,4 @@ export const employeesApi = createApi({
   }),
 })
 
-export const {useGetAllQuery, useAddMutation} = employeesApi
+export const { useGetAllQuery, useAddMutation } = employeesApi
