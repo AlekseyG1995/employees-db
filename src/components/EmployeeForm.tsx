@@ -1,5 +1,6 @@
 import { rolesList } from "../models/rolesList"
 import { useForm, SubmitHandler } from "react-hook-form"
+import { validationRules } from "../utils/validationRules"
 
 // const [day, month, year] = str.split('/');
 // const date = `${year}-${month}-${day}`;
@@ -22,35 +23,35 @@ export const EmployeeForm = () => {
     // need change final Data
     console.log(data)
   }
-  
+
   return (
     <>
       <form className="form" action="" onSubmit={handleSubmit(onSubmit)}>
         <div className="form-firstname">
           <label className="text-sm">
             First name
-            <input className="block w-full" type="text" {...register("firstName", { required: true })} />
+            <input className="block w-full" type="text" {...register("firstName",validationRules.firstName)} />
           </label>
-          {errors.firstName && "First name is required"}
+          {errors.firstName?.message}
         </div>
         <div className="form_lastname">
           <label className="text-sm">
             Last name
-            <input className="block w-full" type="text" {...register("lastName", { required: true })} />
+            <input className="block w-full" type="text" {...register("lastName",validationRules.lastName)} />
           </label>
-          {errors.lastName && "Last name is required"}
+          {errors.lastName?.message}
         </div>
         <div className="form_dob">
           <label className="text-sm">
             Day of birthday
-            <input className="block w-full" type="date" {...register("dob", { required: true })} />
+            <input className="block w-full" type="date" {...register("dob",validationRules.dob)} />
           </label>
-          {errors.dob && "Day of birthday is required"}
+          {errors.dob?.message}
         </div>
         <div className="form_role">
           <label className="text-sm">
             Role
-            <select defaultValue={rolesList[0]} className="block w-full" {...register("role", { required: true })}>
+            <select defaultValue={rolesList[0]} className="block w-full" {...register("role",validationRules.role)}>
               {rolesList.map((role) => (
                 <option key={role} value={role}>
                   {role}
@@ -58,21 +59,12 @@ export const EmployeeForm = () => {
               ))}
             </select>
           </label>
-          {errors.role && "Role is required"}
+          {errors.role?.message}
         </div>
         <div className="form_phone">
           <label className="text-sm">
             Phone
-            <input className="block w-full" type="phone" {...register("phone", { 
-              required: {
-                message: 'Phone number must not be empty',
-                value: true
-              },
-              pattern: {
-                value: /\+7\s*\([0-9]{3}\)\s*[0-9]{3}-[0-9]{4}/g,
-                message: 'Number must be format +7 (xxx) xxx-xxxx'
-              }
-              })} />
+            <input className="block w-full" type="phone" {...register("phone", validationRules.phone)} />
           </label>
           {errors.phone?.message}
         </div>
