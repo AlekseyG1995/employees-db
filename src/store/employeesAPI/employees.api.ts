@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 import { IEmployeeDTO } from "../../models/employee.dto"
 import { IEmployee } from "../../models/employee.model"
-import { IFilters } from "../../types/IFilters"
+import { IDataFromServer, IFilters } from "../../types/types"
 
 const generateParams = (object: IFilters) => {
   // !!! type any
@@ -17,16 +17,20 @@ const generateParams = (object: IFilters) => {
   return obj
 }
 
+
 export const employeesApi = createApi({
   reducerPath: "employees_api",
   tagTypes: ["Employees"],
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/" }), // may be ENV
   endpoints: (build) => ({
-    getAll: build.query<IEmployee[], IFilters>({
+    getAll: build.query<IDataFromServer, IFilters>({
       query: (filterParams: IFilters) => ({
         url: "employees",
         params: generateParams(filterParams),
       }),
+      transformResponse(employees: IEmployee[], meta: any) {
+        return { employees, totalCount: Number(meta.response.headers.get("X-Total-Count")) }
+      },
       providesTags: () => ["Employees"],
     }),
     add: build.mutation<IEmployee, IEmployeeDTO>({

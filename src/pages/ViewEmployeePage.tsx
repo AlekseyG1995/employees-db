@@ -1,9 +1,11 @@
 import React, { FC, useEffect, useState } from "react"
 import { EmployeeList } from "../components/employee/EmployeeList"
 import { FilterForm } from "../components/FilterForm"
+import { Pagination } from "../components/Pagination"
 import { rolesList } from "../models/rolesList"
 import { useLazyGetAllQuery } from "../store/employeesAPI/employees.api"
-import { IFilters } from "../types/IFilters"
+import { IFilters } from "../types/types"
+import { calcTotalPages } from "../utils/pagination"
 
 const casesShowOnPage: number[] = [5, 10, 25]
 
@@ -12,25 +14,34 @@ export const ViewEmployeePage: FC = () => {
     isArchive: false,
     showOnPage: casesShowOnPage[0],
     role: "", // case "all"
-    page: 1, 
+    page: 1,
   })
 
-  useEffect(() => {}, [])
+  const setPage = (page: number) => {
+    setFilters({ ...filters, page })
+  }
 
   useEffect(() => {
-    console.log("VIEW_PAGE filters: ", filters)
     fetchUsers(filters)
   }, [filters])
 
-  const [fetchUsers, { data, isError, isLoading }] = useLazyGetAllQuery()
+  useEffect(()=>{
+    setPage(1) // reFetch after change limit
+  }, [filters.showOnPage])
+
+  const [fetchUsers, { data: dataObject, isError, isLoading }] = useLazyGetAllQuery()
   if (isLoading) return <p>Loading...</p>
   if (isError) return <p>Something went wrong</p>
 
   return (
     <div className="w-full">
       <FilterForm currentFilter={filters} changeFilters={setFilters} roles={rolesList} showOnPage={casesShowOnPage} />
-      <br />
-      <EmployeeList employees={data || []} />
+      <EmployeeList employees={dataObject?.employees || []} />
+      <div className="flex justify-center w-full">
+        {dataObject && dataObject!.totalCount > filters.showOnPage && (
+          <Pagination currentPage={filters.page} totalPages={calcTotalPages(dataObject.totalCount, filters.showOnPage)} setPage={setPage} />
+        )}
+      </div>
     </div>
   )
 }
