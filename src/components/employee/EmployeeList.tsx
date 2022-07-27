@@ -9,9 +9,7 @@ interface EmployeeListProps {
 export const EmployeeList: FC<EmployeeListProps> = ({ employees }) => {
   return (
     <div className="border bg-slate-400">
-      {employees.map((e) => (
-        <EmployeeItem key={e.id} employee={e} />
-      ))}
+      {employees.length === 0 ? <p className="text-center">Employees list is empty!</p> : employees.map((e) => <EmployeeItem key={e.id} employee={e} />)}
     </div>
   )
 }
