@@ -1,15 +1,35 @@
-import React, { FC } from "react"
+import React, { FC, useEffect, useState } from "react"
 import { EmployeeList } from "../components/employee/EmployeeList"
-import { useGetAllQuery } from "../store/employeesAPI/employees.api"
+import { FilterForm } from "../components/FilterForm"
+import { rolesList } from "../models/rolesList"
+import { useLazyGetAllQuery } from "../store/employeesAPI/employees.api"
+import { IFilters } from "../types/IFilters"
 
-export const ViewEmployeePage:FC = () => {
-  const { data, isError, isLoading } = useGetAllQuery()
+const casesShowOnPage: number[] = [5, 10, 25]
 
+export const ViewEmployeePage: FC = () => {
+  const [filters, setFilters] = useState<IFilters>({
+    isArchive: false,
+    showOnPage: casesShowOnPage[0],
+    role: "", // case "all"
+    page: 1, 
+  })
+
+  useEffect(() => {}, [])
+
+  useEffect(() => {
+    console.log("VIEW_PAGE filters: ", filters)
+    fetchUsers(filters)
+  }, [filters])
+
+  const [fetchUsers, { data, isError, isLoading }] = useLazyGetAllQuery()
   if (isLoading) return <p>Loading...</p>
   if (isError) return <p>Something went wrong</p>
 
   return (
-    <div>
+    <div className="w-full">
+      <FilterForm currentFilter={filters} changeFilters={setFilters} roles={rolesList} showOnPage={casesShowOnPage} />
+      <br />
       <EmployeeList employees={data || []} />
     </div>
   )
