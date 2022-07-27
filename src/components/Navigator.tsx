@@ -11,9 +11,9 @@ export const Navigator = () => {
         <NavLink className={({ isActive }) => `mr-2  p-1 ${isActive ? "border rounded-md" : ""}`} to="/add">
           Add
         </NavLink>
-        <NavLink className={({ isActive }) => `p-1 ${isActive ? "border rounded-md" : ""}`} to="/edit">
+        {/* <NavLink className={({ isActive }) => `p-1 ${isActive ? "border rounded-md" : ""}`} to="/edit">
           Edit
-        </NavLink>
+        </NavLink> */}
       </div>
     </nav>
   )

@@ -8,7 +8,7 @@ export const AddEmployeePage:FC = () => {
 
   return (
     <div>
-      <EmployeeForm addEmployee={addEmployee}/>
+      <EmployeeForm sendData={addEmployee}/>
     </div>
   )
 }
