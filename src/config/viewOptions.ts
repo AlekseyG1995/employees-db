@@ -1,0 +1,1 @@
+export const casesShowOnPage: number[] = [5, 10, 25]
