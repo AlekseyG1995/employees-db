@@ -1,5 +1,5 @@
 import React, { FC } from "react"
-import { IFilters } from "../types/IFilters"
+import { IFilters } from "../types/types"
 
 interface FilterFormProps {
   roles?: string[]

@@ -9,7 +9,7 @@ export const App = () => {
   return (
     <>
       <Navigator />
-      <div className="flex justify-center pt-5 mx-auto">
+      <div className="flex justify-center w-[80vw] pt-5 mx-auto">
         <Routes>
           <Route path="/" element={<ViewEmployeePage />}></Route>
           <Route path="/edit" element={<EditorEmployeePage />}></Route>

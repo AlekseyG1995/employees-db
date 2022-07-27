@@ -88,7 +88,7 @@ export const EmployeeForm: FC<EmployeeFormProps> = ({ addEmployee }) => {
               name="phone"
               control={control}
               rules={validationRules.phone}
-              render={({ field }) => <IMaskInput className="w-full" mask={"{+7} ({9}00) 000-0000"} {...field} inputRef={field.ref} />}
+              render={({ field }) => <IMaskInput className="w-full" mask={"{+7} (000) 000-0000"} {...field} inputRef={field.ref} />}
             />
           </label>
           {errors.phone?.message}
