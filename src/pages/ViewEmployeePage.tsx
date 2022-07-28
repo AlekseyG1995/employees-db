@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from "react"
 import { EmployeeList } from "../components/employee/EmployeeList"
+import { Error } from "../components/Error"
 import { FilterForm } from "../components/FilterForm"
 import { Loader } from "../components/Loader"
 import { Pagination } from "../components/Pagination"
@@ -16,9 +17,8 @@ export const ViewEmployeePage: FC = () => {
     setFilters({ ...filters, page })
   }
   
-  
-  if (isLoading) return <p>Loading...</p>
-  if (isError) return <p>Something went wrong</p>
+  if (isLoading) return <Loader/>
+  if (isError) return <Error/>
 
   return (
     <div className="w-full">
