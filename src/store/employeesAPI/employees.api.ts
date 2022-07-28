@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 import { IEmployeeDTO } from "../../models/employee.dto"
 import { IEmployee } from "../../models/employee.model"
-import { IDataFromServer, IFilters } from "../../types/types"
+import { IDataFromServer, IFilters, IUpdateParams } from "../../types/types"
 
 const generateParams = (object: IFilters) => {
   // !!! type any
@@ -17,10 +17,9 @@ const generateParams = (object: IFilters) => {
   return obj
 }
 
-
 export const employeesApi = createApi({
   reducerPath: "employees_api",
-  tagTypes: ["Employees"],
+  tagTypes: ["Employees", "Employee"],
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/" }), // may be ENV
   endpoints: (build) => ({
     getAll: build.query<IDataFromServer, IFilters>({
@@ -32,6 +31,13 @@ export const employeesApi = createApi({
         return { employees, totalCount: Number(meta.response.headers.get("X-Total-Count")) }
       },
       providesTags: () => ["Employees"],
+      keepUnusedDataFor: 3
+    }),
+    getOne: build.query<IEmployee, number>({
+      query: (id: number) => ({
+        url: `employees/${id}`,
+      }),
+      providesTags: () => ["Employee"],
     }),
     add: build.mutation<IEmployee, IEmployeeDTO>({
       query: (employeeDTO: IEmployeeDTO) => ({
@@ -51,20 +57,21 @@ export const employeesApi = createApi({
       //   })
       // },
     }),
-    udpate: build.mutation<IEmployee, IEmployee>({
-      query: (employee: IEmployee) => ({
-        url: "employees/{id}",
+    udpate: build.mutation<IEmployee, IUpdateParams>({
+      query: ({ employeeDTO, id }) => ({
+        url: `employees/${id}`,
         method: "PUT",
-        body: employee,
+        body: employeeDTO,
       }),
+      invalidatesTags: ["Employees", "Employee"],
     }),
-    delete: build.mutation<IEmployee, void>({
-      query: () => ({
-        url: "employees/{id}",
+    delete: build.mutation<IEmployee, number>({
+      query: (id) => ({
+        url: `employees/${id}`,
         method: "DELETE",
       }),
     }),
   }),
 })
 
-export const { useLazyGetAllQuery, useAddMutation } = employeesApi
+export const { useLazyGetAllQuery, useGetOneQuery, useAddMutation, useUdpateMutation, useDeleteMutation } = employeesApi

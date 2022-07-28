@@ -1,3 +1,5 @@
+// !!!! все дефолты объявлять в useForm
+
 import { rolesList } from "../models/rolesList"
 import { useForm, SubmitHandler, Controller } from "react-hook-form"
 import { validationRules } from "../utils/validationRules"
@@ -6,6 +8,7 @@ import { IEmployeeDTO } from "../models/employee.dto"
 import { IMaskInput } from "react-imask"
 import { IEmployee } from "../models/employee.model"
 import { convertToClientFormat, convertToServerFormat } from "../utils/convertData"
+import { IUpdateParams } from "../types/types"
 
 interface IFormInputs {
   firstName: string
@@ -17,13 +20,17 @@ interface IFormInputs {
 }
 
 interface EmployeeFormProps {
-  sendData: (employee: IEmployeeDTO) => void
+  addEmployee?: (employee: IEmployeeDTO) => void
+  updateEmployee?: (updateObject: IUpdateParams) => void
   deleteEmployee?: (id: number) => void
   isEditMode?: boolean
   preData?: IEmployee
 }
 
-export const EmployeeForm: FC<EmployeeFormProps> = ({ sendData, preData, isEditMode, deleteEmployee }) => {
+export const EmployeeForm: FC<EmployeeFormProps> = ({ addEmployee, preData, isEditMode, updateEmployee, deleteEmployee }) => {
+  if (!isEditMode && !addEmployee) throw new Error('Wrong config: for AddMode should be function "addEmployee"')
+  if (isEditMode && !updateEmployee) throw new Error('Wrong config: for updateMode should be function "updateEmployee"')
+
   const {
     register,
     handleSubmit,
@@ -40,21 +47,20 @@ export const EmployeeForm: FC<EmployeeFormProps> = ({ sendData, preData, isEditM
       birthday: convertToServerFormat(data.dob), // convert Date of Birthday to pattern
     }
     try {
-      const response = await sendData(employeeDTO)
-      console.log(`[task-log] Employee has been ${isEditMode?'updated': 'added'}!`, response)
+      const response = !isEditMode ? await addEmployee!(employeeDTO) : await updateEmployee!({ employeeDTO, id: preData!.id })
+      console.log(`[task-log] Employee has been ${isEditMode ? "updated" : "added"}!`, response)
       // console.log("!!!!!!!!!", employeeDTO)
 
       !isEditMode && reset()
     } catch (e) {
-      console.error(`[task-log] Employee has not been ${isEditMode?'updated': 'added'}!`, e)
+      console.error(`[task-log] Employee has not been ${isEditMode ? "updated" : "added"}!`, e)
       alert("Something went wrong!")
     }
   }
 
   const deleteEmployeeHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    deleteEmployee && deleteEmployee(preData!.id)
     console.log("[Employee Form] deleting...")
-
-    //delete Login
   }
 
   return (
@@ -131,7 +137,7 @@ export const EmployeeForm: FC<EmployeeFormProps> = ({ sendData, preData, isEditM
           <div className="form_isArhive">
             <label>
               isArchive
-              <input type="checkbox" defaultChecked={preData ? preData.isArchive : false} {...register("isArchive")} />
+              <input type="checkbox" defaultChecked={preData && preData.isArchive} {...register("isArchive")} />
             </label>
           </div>
         )}

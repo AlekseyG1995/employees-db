@@ -1,3 +1,4 @@
+import { IEmployeeDTO } from "../models/employee.dto"
 import { IEmployee } from "../models/employee.model"
 
 export interface IFilters {
@@ -10,4 +11,9 @@ export interface IFilters {
 export interface IDataFromServer {
   employees: IEmployee[]
   totalCount: number
+}
+
+export interface IUpdateParams{
+  employeeDTO: IEmployeeDTO
+  id: number
 }

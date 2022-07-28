@@ -1,27 +1,22 @@
 import React, { FC, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { EmployeeForm } from "../components/EmployeeForm"
-import { IEmployee } from "../models/employee.model"
-import { useAddMutation, useLazyGetOneQuery } from "../store/employeesAPI/employees.api"
+import { useDeleteMutation, useGetOneQuery, useUdpateMutation } from "../store/employeesAPI/employees.api"
 
 export const EditorEmployeePage: FC = () => {
-  const [updateEmployee, {}] = useAddMutation() // !!!! _temp
+  const [updateEmployee] = useUdpateMutation()
+  const [deleteEmployee] = useDeleteMutation()
   const { id } = useParams()
+  const { data, isError, isLoading } = useGetOneQuery(Number(id))
 
-  const data: IEmployee = {
-    id: 1,
-    name: "Илья Емельянов",
-    isArchive: false,
-    role: "frontend",
-    phone: "+7 (883) 508-3269",
-    birthday: "12.02.1982",
-  }
-
+ 
+  if (isLoading) return <p>Loading...</p>
+  if (isError) return <p>Something went wrong</p>
 
   return (
     <div>
       <h2 className="text-2xl font-bold">Edit employee</h2>
-      <EmployeeForm sendData={updateEmployee} isEditMode preData={data}></EmployeeForm>
+      <EmployeeForm updateEmployee={updateEmployee} isEditMode preData={data} deleteEmployee={deleteEmployee}></EmployeeForm>
     </div>
   )
 }

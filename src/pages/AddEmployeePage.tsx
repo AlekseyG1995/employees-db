@@ -1,5 +1,6 @@
 import React, { FC } from "react"
 import { EmployeeForm } from "../components/EmployeeForm"
+
 import { useAddMutation } from "../store/employeesAPI/employees.api"
 
 export const AddEmployeePage:FC = () => {
@@ -8,7 +9,7 @@ export const AddEmployeePage:FC = () => {
 
   return (
     <div>
-      <EmployeeForm sendData={addEmployee}/>
+      <EmployeeForm addEmployee={addEmployee}/>
     </div>
   )
 }

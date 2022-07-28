@@ -1,23 +1,22 @@
 import React, { FC, useEffect, useState } from "react"
 import { EmployeeList } from "../components/employee/EmployeeList"
 import { FilterForm } from "../components/FilterForm"
+import { Loader } from "../components/Loader"
 import { Pagination } from "../components/Pagination"
 import { casesShowOnPage } from "../config/viewOptions"
 import { useFiltersViewEmployees } from "../hooks/useFiltersViewEmployees"
 import { rolesList } from "../models/rolesList"
 import { useLazyGetAllQuery } from "../store/employeesAPI/employees.api"
-import { IFilters } from "../types/types"
 import { calcTotalPages } from "../utils/pagination"
 
 export const ViewEmployeePage: FC = () => {
-  const [fetchEmployess, { data: dataObject, isError, isLoading }] = useLazyGetAllQuery()
-  const { filters, setFilters } = useFiltersViewEmployees(fetchEmployess)
+  const [fetchEmployees, { data: dataObject, isError, isLoading }] = useLazyGetAllQuery()
+  const { filters, setFilters } = useFiltersViewEmployees(fetchEmployees)
   const setPage = (page: number) => {
     setFilters({ ...filters, page })
   }
-
-
-
+  
+  
   if (isLoading) return <p>Loading...</p>
   if (isError) return <p>Something went wrong</p>
 
