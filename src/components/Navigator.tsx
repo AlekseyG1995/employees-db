@@ -1,16 +1,17 @@
 import { NavLink } from "react-router-dom"
+import MyNavLink from "./MyNavLink"
 
 export const Navigator = () => {
   return (
     <nav className="flex justify-between items-center h-[50px] px-5 shadow-md bg-cyan-700 text-white">
       <h2 className="text-xl font-bold">Employees DB</h2>
       <div className="flex items-center">
-        <NavLink className={({ isActive }) => `mr-2  p-1 ${isActive && "border rounded-md"}`} to="/">
+        <MyNavLink className="mr-2 p-1 " to="/">
           View All
-        </NavLink>
-        <NavLink className={({ isActive }) => `mr-2  p-1 ${isActive ? "border rounded-md" : ""}`} to="/add">
+        </MyNavLink>
+        <MyNavLink className="p-1" to="/add">
           Add
-        </NavLink>
+        </MyNavLink>
         {/* <NavLink className={({ isActive }) => `p-1 ${isActive ? "border rounded-md" : ""}`} to="/edit">
           Edit
         </NavLink> */}
