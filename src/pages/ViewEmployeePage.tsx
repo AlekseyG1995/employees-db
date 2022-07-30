@@ -16,16 +16,16 @@ export const ViewEmployeePage: FC = () => {
   const setPage = (page: number) => {
     setFilters({ ...filters, page })
   }
-  
-  if (isLoading) return <Loader/>
-  if (isError) return <Error/>
+
+  if (isLoading) return <Loader />
+  if (isError) return <Error />
 
   return (
     <div className="w-full">
       <FilterForm currentFilter={filters} changeFilters={setFilters} roles={rolesList} showOnPage={casesShowOnPage} />
       <EmployeeList employees={dataObject?.employees || []} />
       <div className="flex justify-center w-full">
-        {dataObject && dataObject!.totalCount > filters.showOnPage && (
+        {dataObject && filters.showOnPage > 0 && dataObject!.totalCount > filters.showOnPage && (
           <Pagination currentPage={filters.page} totalPages={calcTotalPages(dataObject.totalCount, filters.showOnPage)} setPage={setPage} />
         )}
       </div>
