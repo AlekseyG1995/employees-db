@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react"
+import { FC } from "react"
 import { EmployeeList } from "../components/employee/EmployeeList"
 import { Error } from "../components/Error"
 import { FilterForm } from "../components/FilterForm"

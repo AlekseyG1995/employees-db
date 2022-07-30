@@ -9,6 +9,7 @@ import { IMaskInput } from "react-imask"
 import { IEmployee } from "../models/employee.model"
 import { convertToClientFormat, convertToServerFormat } from "../utils/convertData"
 import { IUpdateParams } from "../types/types"
+import { useNavigate } from "react-router-dom"
 
 interface IFormInputs {
   firstName: string
@@ -30,6 +31,7 @@ interface EmployeeFormProps {
 export const EmployeeForm: FC<EmployeeFormProps> = ({ addEmployee, preData, isEditMode, updateEmployee, deleteEmployee }) => {
   if (!isEditMode && !addEmployee) throw new Error('Wrong config: for AddMode should be function "addEmployee"')
   if (isEditMode && !updateEmployee) throw new Error('Wrong config: for updateMode should be function "updateEmployee"')
+  const navigate = useNavigate()
 
   const {
     register,
@@ -49,7 +51,6 @@ export const EmployeeForm: FC<EmployeeFormProps> = ({ addEmployee, preData, isEd
     try {
       const response = !isEditMode ? await addEmployee!(employeeDTO) : await updateEmployee!({ employeeDTO, id: preData!.id })
       console.log(`[task-log] Employee has been ${isEditMode ? "updated" : "added"}!`, response)
-      // console.log("!!!!!!!!!", employeeDTO)
 
       !isEditMode && reset()
     } catch (e) {
@@ -61,6 +62,7 @@ export const EmployeeForm: FC<EmployeeFormProps> = ({ addEmployee, preData, isEd
   const deleteEmployeeHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     deleteEmployee && deleteEmployee(preData!.id)
     console.log("[Employee Form] deleting...")
+    navigate("/", { replace: true })
   }
 
   return (
