@@ -21,14 +21,18 @@ export const ViewEmployeePage: FC = () => {
   if (isError) return <Error />
 
   return (
-    <div className="w-full">
-      <FilterForm currentFilter={filters} changeFilters={setFilters} roles={rolesList} showOnPage={casesShowOnPage} />
-      <EmployeeList employees={dataObject?.employees || []} />
-      <div className="flex justify-center w-full">
-        {dataObject && filters.showOnPage > 0 && dataObject!.totalCount > filters.showOnPage && (
-          <Pagination currentPage={filters.page} totalPages={calcTotalPages(dataObject.totalCount, filters.showOnPage)} setPage={setPage} />
-        )}
+    <div className="w-full h-full sm:w-[70%] flex flex-col sm:mx-auto">
+      <div className="basis-14 min-h-14">
+        <FilterForm currentFilter={filters} changeFilters={setFilters} roles={rolesList} showOnPage={casesShowOnPage} />
       </div>
+      <div className="flex-auto overflow-y-auto">
+        <EmployeeList employees={dataObject?.employees || []} />
+      </div>
+      {dataObject && filters.showOnPage > 0 && dataObject!.totalCount > filters.showOnPage && (
+        <div className="flex justify-center items-center w-full basis-[50px] min-h-[50px]">
+          <Pagination currentPage={filters.page} totalPages={calcTotalPages(dataObject.totalCount, filters.showOnPage)} setPage={setPage} />
+        </div>
+      )}
     </div>
   )
 }

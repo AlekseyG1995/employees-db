@@ -22,11 +22,11 @@ export const FilterForm: FC<FilterFormProps> = ({ currentFilter, changeFilters, 
   }
 
   return (
-    <div className="filter-form w-full border flex justify-between">
-      <div className="filter-form__role">
+    <div className="w-full px-1 flex justify-between text-center py-1">
+      <div className="basis-2/5">
         <label>
           Sorting by role
-          <select defaultValue={currentFilter.role} onChange={selectRoleHandler}>
+          <select className="my-input  sm:block sm:w-[70%] sm:mx-auto text-sm sm:text-base" defaultValue={currentFilter.role} onChange={selectRoleHandler}>
             <option value="">All</option>
             {roles.map((role) => (
               <option key={role} value={role}>
@@ -36,21 +36,24 @@ export const FilterForm: FC<FilterFormProps> = ({ currentFilter, changeFilters, 
           </select>
         </label>
       </div>
-      <div className="filter-form__archive">
+      <div className=" basis-1/5">
         <label>
-          Archived
-          <input type="checkbox" defaultChecked={currentFilter.isArchive} onChange={isArchiveChangeHandler} />
+          archived
+          <input className="w-full my-1 h-5 sm:h-6" type="checkbox" defaultChecked={currentFilter.isArchive} onChange={isArchiveChangeHandler} />
         </label>
       </div>
-      <div className="filter-form__show-on-page">
-        <select defaultValue={currentFilter.showOnPage} onChange={selectCountPageHandler}>
-          {showOnPage.map((pageNum) => (
-            <option key={pageNum} value={pageNum}>
-              {pageNum}
-            </option>
-          ))}
-          <option value={0}>All</option>
-        </select>
+      <div className=" basis-2/5 ">
+        <label>
+          show on Page
+          <select className="my-input px-1 sm:block sm:w-[70%] sm:mx-auto text-sm sm:text-base" defaultValue={currentFilter.showOnPage} onChange={selectCountPageHandler}>
+            {showOnPage.map((pageNum) => (
+              <option key={pageNum} value={pageNum}>
+                {pageNum}
+              </option>
+            ))}
+            <option value={0}>All</option>
+          </select>
+        </label>
       </div>
     </div>
   )

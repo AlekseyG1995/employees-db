@@ -17,7 +17,7 @@ export const useFiltersViewEmployees = (fetchEmployees: (filters: IFilters, pref
 
   const [filters, setFilters] = useState<IFilters>({
     isArchive: searchParams.has("isArchive") && searchParams.get("isArchive") === "true" ? true : false || false,
-    showOnPage: searchParams.has("limit") ? Number(searchParams.get("limit")) : casesShowOnPage[0],
+    showOnPage: searchParams.has("limit") ? Number(searchParams.get("limit")) : 0,
     role: searchParams.get("role") || "",
     page: Number(searchParams.get("limit")) || 1,
   })

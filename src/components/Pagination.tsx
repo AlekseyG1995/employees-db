@@ -59,9 +59,10 @@ export const Pagination: FC<PaginationProps> = ({ totalPages, currentPage, setPa
 
   return (
     <nav aria-label="Page navigation example">
-      <ul className="inline-flex -space-x-px mt-5">
+      <ul className="inline-flex -space-x-px">
         <li>
           <button
+          disabled={currentPage === 1}
             onClick={() => setPage(currentPage - 1)}
             className={(currentPage !== 1 ? [btnClasses, " rounded-l-lg"] : [btnClasses, " rounded-l-lg", btnClasses_disable]).join("")}
           >
@@ -79,6 +80,7 @@ export const Pagination: FC<PaginationProps> = ({ totalPages, currentPage, setPa
 
         <li>
           <button
+            disabled={currentPage === totalPages}
             className={(currentPage !== totalPages
               ? [btnClasses, " rounded-r-lg"]
               : [btnClasses, " rounded-r-lg", btnClasses_disable]
