@@ -1,3 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.my-layout {
+  @apply flex flex-col h-screen max-h-screen
+}
+
