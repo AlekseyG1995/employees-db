@@ -51,8 +51,8 @@ export const EmployeeForm: FC<EmployeeFormProps> = ({ addEmployee, preData, isEd
     try {
       const response = !isEditMode ? await addEmployee!(employeeDTO) : await updateEmployee!({ employeeDTO, id: preData!.id })
       console.log(`[task-log] Employee has been ${isEditMode ? "updated" : "added"}!`, response)
-
       !isEditMode && reset()
+      !isEditMode && alert('User has been successfully added!')
     } catch (e) {
       console.error(`[task-log] Employee has not been ${isEditMode ? "updated" : "added"}!`, e)
       alert("Something went wrong!")
@@ -149,12 +149,12 @@ export const EmployeeForm: FC<EmployeeFormProps> = ({ addEmployee, preData, isEd
 
         <div className={`mt-1 flex ${!isEditMode ? "justify-center" : "justify-around"}`}>
           <div className="form_submit-button text-center">
-            <button className="border my-3 py-1.5 px-4 bg-cyan-600 text-white rounded-sm" type="submit">
+            <button className="border hover:opacity-80 text-sm sm:text-base uppercase my-3 py-1.5 px-4 bg-cyan-600 text-white rounded-sm" type="submit">
               {isEditMode ? "update employee" : "add employee"}
             </button>
           </div>
           {isEditMode && (
-            <button onClick={deleteEmployeeHandler} className="border my-3 py-1.5 px-4 bg-red-600 text-white rounded-sm">
+            <button onClick={deleteEmployeeHandler} className="border hover:opacity-80 text-sm sm:text-base uppercase my-3 py-1.5 px-4 bg-red-600 text-white rounded-sm">
               delete employee
             </button>
           )}
