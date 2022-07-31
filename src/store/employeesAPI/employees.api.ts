@@ -20,7 +20,7 @@ const generateParams = (object: IFilters) => {
 export const employeesApi = createApi({
   reducerPath: "employees_api",
   tagTypes: ["Employees", "Employee"],
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5000/" }), // may be ENV
+  baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_API }), // may be ENV
   endpoints: (build) => ({
     getAll: build.query<IDataFromServer, IFilters>({
       query: (filterParams: IFilters) => ({

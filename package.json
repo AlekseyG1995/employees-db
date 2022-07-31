@@ -24,9 +24,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cross-env REACT_APP_API=http://192.168.42.62:5000/ react-scripts start",
     "dualdev": "concurrently \"npm run jsonserver\" \"npm start\"",
-    "jsonserver": "json-server --watch db.json --port 5000",
+    "jsonserver": "json-server --watch db.json --port 5000 --host 192.168.42.62",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -50,6 +50,7 @@
     ]
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "tailwindcss": "^3.1.6"
   }
 }
