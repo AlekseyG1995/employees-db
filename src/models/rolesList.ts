@@ -1,1 +1,1 @@
-export const rolesList = ["frontend", "backend", "tester"]
+export const rolesList = ['frontend', 'backend', 'tester']

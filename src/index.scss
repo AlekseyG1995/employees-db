@@ -49,4 +49,8 @@
   &_btn-active {
     @apply py-2 px-3 leading-tight border border-gray-700 text-white bg-gray-700 hover:bg-blue-100 hover:text-blue-700;
   }
+
+  &_btn-disable {
+    @apply opacity-70 cursor-no-drop;
+  }
 }

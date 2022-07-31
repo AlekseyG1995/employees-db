@@ -1,7 +1,7 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { IEmployeeDTO } from "../../models/employee.dto"
-import { IEmployee } from "../../models/employee.model"
-import { IDataFromServer, IFilters, IUpdateParams } from "../../types/types"
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { IEmployeeDTO } from '../../models/employee.dto'
+import { IEmployee } from '../../models/employee.model'
+import { IDataFromServer, IFilters, IUpdateParams } from '../../types/types'
 
 const generateParams = (object: IFilters) => {
   const obj: any = {
@@ -17,34 +17,37 @@ const generateParams = (object: IFilters) => {
 }
 
 export const employeesApi = createApi({
-  reducerPath: "employees_api",
-  tagTypes: ["Employees", "Employee"],
+  reducerPath: 'employees_api',
+  tagTypes: ['Employees', 'Employee'],
   baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_API }), // may be ENV
   endpoints: (build) => ({
     getAll: build.query<IDataFromServer, IFilters>({
       query: (filterParams: IFilters) => ({
-        url: "employees",
+        url: 'employees',
         params: generateParams(filterParams),
       }),
       transformResponse(employees: IEmployee[], meta: any) {
-        return { employees, totalCount: Number(meta.response.headers.get("X-Total-Count")) }
+        return {
+          employees,
+          totalCount: Number(meta.response.headers.get('X-Total-Count')),
+        }
       },
-      providesTags: () => ["Employees"],
+      providesTags: () => ['Employees'],
       keepUnusedDataFor: 3,
     }),
     getOne: build.query<IEmployee, number>({
       query: (id: number) => ({
         url: `employees/${id}`,
       }),
-      providesTags: () => ["Employee"],
+      providesTags: () => ['Employee'],
     }),
     add: build.mutation<IEmployee, IEmployeeDTO>({
       query: (employeeDTO: IEmployeeDTO) => ({
-        url: "employees",
-        method: "POST",
+        url: 'employees',
+        method: 'POST',
         body: employeeDTO,
       }),
-      invalidatesTags: ["Employees"],
+      invalidatesTags: ['Employees'],
       // async onQueryStarted(_, { dispatch, queryFulfilled }) {
       //   queryFulfilled.then(({ data }) => {
       //     dispatch(
@@ -59,19 +62,25 @@ export const employeesApi = createApi({
     udpate: build.mutation<IEmployee, IUpdateParams>({
       query: ({ employeeDTO, id }) => ({
         url: `employees/${id}`,
-        method: "PUT",
+        method: 'PUT',
         body: employeeDTO,
       }),
-      invalidatesTags: ["Employees", "Employee"],
+      invalidatesTags: ['Employees', 'Employee'],
     }),
     delete: build.mutation<IEmployee, number>({
       query: (id) => ({
         url: `employees/${id}`,
-        method: "DELETE",
+        method: 'DELETE',
       }),
-      invalidatesTags: ["Employees", "Employee"],
+      invalidatesTags: ['Employees', 'Employee'],
     }),
   }),
 })
 
-export const { useLazyGetAllQuery, useGetOneQuery, useAddMutation, useUdpateMutation, useDeleteMutation } = employeesApi
+export const {
+  useLazyGetAllQuery,
+  useGetOneQuery,
+  useAddMutation,
+  useUdpateMutation,
+  useDeleteMutation,
+} = employeesApi

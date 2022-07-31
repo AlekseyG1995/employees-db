@@ -1,4 +1,4 @@
-import { FC } from "react"
+import { FC } from 'react'
 
 interface PaginationProps {
   totalPages: number
@@ -8,9 +8,7 @@ interface PaginationProps {
 }
 
 export const Pagination: FC<PaginationProps> = ({ totalPages, currentPage, setPage, maxButtons = totalPages }) => {
-  if (currentPage > totalPages) throw new Error("СurrentPage should be no more than TotalPages")
-
-  const btnClasses_disable = " opacity-70 cursor-no-drop"
+  if (currentPage > totalPages) throw new Error('СurrentPage should be no more than TotalPages')
 
   const generateArrButtons = (current: number, max: number, MAX_BUTTONS: number): number[] => {
     const _arr = []
@@ -37,9 +35,12 @@ export const Pagination: FC<PaginationProps> = ({ totalPages, currentPage, setPa
       <ul className="inline-flex -space-x-px">
         <li>
           <button
-          disabled={currentPage === 1}
+            disabled={currentPage === 1}
             onClick={() => setPage(currentPage - 1)}
-            className={(currentPage !== 1 ? ['my-pagination_btns', " rounded-l-lg"] : ['my-pagination_btns', " rounded-l-lg", btnClasses_disable]).join("")}
+            className={(currentPage !== 1
+              ? ['my-pagination_btns', ' rounded-l-lg']
+              : ['my-pagination_btns', ' rounded-l-lg', ' my-pagination_btn-disable']
+            ).join('')}
           >
             Prev
           </button>
@@ -47,7 +48,10 @@ export const Pagination: FC<PaginationProps> = ({ totalPages, currentPage, setPa
 
         {generateArrButtons(currentPage, totalPages, maxButtons).map((pageNum) => (
           <li key={pageNum}>
-            <button onClick={() => setPage(pageNum)} className={pageNum !== currentPage ? 'my-pagination_btns' : 'my-pagination_btn-active'}>
+            <button
+              onClick={() => setPage(pageNum)}
+              className={pageNum !== currentPage ? 'my-pagination_btns' : 'my-pagination_btn-active'}
+            >
               {pageNum}
             </button>
           </li>
@@ -57,9 +61,9 @@ export const Pagination: FC<PaginationProps> = ({ totalPages, currentPage, setPa
           <button
             disabled={currentPage === totalPages}
             className={(currentPage !== totalPages
-              ? ['my-pagination_btns', " rounded-r-lg"]
-              : ['my-pagination_btns', " rounded-r-lg", btnClasses_disable]
-            ).join("")}
+              ? ['my-pagination_btns', ' rounded-r-lg']
+              : ['my-pagination_btns', ' rounded-r-lg', ' my-pagination_btn-disable']
+            ).join('')}
             onClick={() => setPage(currentPage + 1)}
           >
             Next
@@ -69,4 +73,3 @@ export const Pagination: FC<PaginationProps> = ({ totalPages, currentPage, setPa
     </nav>
   )
 }
-

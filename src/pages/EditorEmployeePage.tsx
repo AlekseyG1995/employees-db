@@ -1,9 +1,9 @@
-import React, { FC, useEffect } from "react"
-import { useNavigate, useParams } from "react-router-dom"
-import { EmployeeForm } from "../components/employee/EmployeeForm"
-import { Error } from "../components/Error"
-import { Loader } from "../components/Loader"
-import { useDeleteMutation, useGetOneQuery, useUdpateMutation } from "../store/employeesAPI/employees.api"
+import { FC } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { EmployeeForm } from '../components/employee/EmployeeForm'
+import { Error } from '../components/Error'
+import { Loader } from '../components/Loader'
+import { useDeleteMutation, useGetOneQuery, useUdpateMutation } from '../store/employeesAPI/employees.api'
 
 export const EditorEmployeePage: FC = () => {
   const [updateEmployee] = useUdpateMutation()
@@ -12,8 +12,8 @@ export const EditorEmployeePage: FC = () => {
   const { data, isError, isLoading } = useGetOneQuery(Number(id))
 
   const navigate = useNavigate()
-  if (isLoading) return <Loader/>
-  if (isError) return <Error/>
+  if (isLoading) return <Loader />
+  if (isError) return <Error />
 
   return (
     <div className="w-[90%] sm:w-[50%] mx-auto">

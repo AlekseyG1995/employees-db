@@ -1,6 +1,6 @@
-import { FC } from "react"
+import { FC } from 'react'
 
-export const Loader:FC = () => (
+export const Loader: FC = () => (
   <>
     <div className="flex items-center justify-center h-screen space-x-5 animate-bounce">
       <div className="w-6 h-6 bg-blue-500 rounded-full"></div>

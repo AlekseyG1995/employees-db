@@ -1,16 +1,16 @@
-import { FC } from "react"
-import { Link } from "react-router-dom"
-import { IEmployee } from "../../models/employee.model"
-import { convertToClientFormat } from "../../utils/convertData"
+import { FC } from 'react'
+import { Link } from 'react-router-dom'
+import { IEmployee } from '../../models/employee.model'
+import { convertToClientFormat } from '../../utils/convertData'
 
 interface EmployeeItemProps {
   employee: IEmployee
 }
 
 const colorsRole = {
-  tester: "bg-red-400",
-  backend: "bg-green-500",
-  frontend: "bg-blue-300",
+  tester: 'bg-red-400',
+  backend: 'bg-green-500',
+  frontend: 'bg-blue-300'
 }
 
 const getAge = (birthday: string) => new Date().getFullYear() - new Date(convertToClientFormat(birthday)).getFullYear()
@@ -24,7 +24,7 @@ export const EmployeeItem: FC<EmployeeItemProps> = ({ employee }) => {
         <div className="flex justify-between">
           <div>
             {employee.birthday}
-            <span className="italic"> ({getAge(employee.birthday)})</span> 
+            <span className="italic"> ({getAge(employee.birthday)})</span>
           </div>
           <div>{employee.phone}</div>
         </div>

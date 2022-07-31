@@ -1,13 +1,13 @@
-import { rolesList } from "../../models/rolesList"
-import { useForm, SubmitHandler, Controller } from "react-hook-form"
-import { validationRules } from "../../utils/validationRules"
-import { FC } from "react"
-import { IEmployeeDTO } from "../../models/employee.dto"
-import { IMaskInput } from "react-imask"
-import { IEmployee } from "../../models/employee.model"
-import { convertToClientFormat, convertToServerFormat } from "../../utils/convertData"
-import { IUpdateParams } from "../../types/types"
-import { useNavigate } from "react-router-dom"
+import { rolesList } from '../../models/rolesList'
+import { useForm, SubmitHandler, Controller } from 'react-hook-form'
+import { validationRules } from '../../utils/validationRules'
+import { FC } from 'react'
+import { IEmployeeDTO } from '../../models/employee.dto'
+import { IMaskInput } from 'react-imask'
+import { IEmployee } from '../../models/employee.model'
+import { convertToClientFormat, convertToServerFormat } from '../../utils/convertData'
+import { IUpdateParams } from '../../types/types'
+import { useNavigate } from 'react-router-dom'
 
 interface IFormInputs {
   firstName: string
@@ -36,15 +36,15 @@ export const EmployeeForm: FC<EmployeeFormProps> = ({ addEmployee, preData, isEd
     handleSubmit,
     reset,
     formState: { errors },
-    control,
+    control
   } = useForm<IFormInputs>({
     defaultValues: {
-      firstName: preData && preData.name.split(" ")[0],
-      lastName: preData && preData.name.split(" ")[1],
-      role: preData ? preData.role : "",
+      firstName: preData && preData.name.split(' ')[0],
+      lastName: preData && preData.name.split(' ')[1],
+      role: preData ? preData.role : '',
       birthday: preData && convertToClientFormat(preData.birthday),
-      phone: preData && preData.phone,
-    },
+      phone: preData && preData.phone
+    }
   })
   const onSubmit: SubmitHandler<IFormInputs> = async (data: IFormInputs) => {
     const employeeDTO: IEmployeeDTO = {
@@ -52,29 +52,29 @@ export const EmployeeForm: FC<EmployeeFormProps> = ({ addEmployee, preData, isEd
       role: data.role,
       isArchive: data.isArchive || false,
       phone: data.phone,
-      birthday: convertToServerFormat(data.birthday), // convert Date of Birthday to pattern
+      birthday: convertToServerFormat(data.birthday) // convert Date of Birthday to pattern
     }
     try {
       const response = !isEditMode ? await addEmployee!(employeeDTO) : await updateEmployee!({ employeeDTO, id: preData!.id })
-      console.log(`[task-log] Employee has been ${isEditMode ? "updated" : "added"}!`, response)
+      console.log(`[task-log] Employee has been ${isEditMode ? 'updated' : 'added'}!`, response)
       if (!isEditMode) {
         reset()
-        alert("User has been successfully added!")
+        alert('User has been successfully added!')
       } else {
         navigate(-1)
       }
     } catch (e) {
-      console.error(`[task-log] Employee has not been ${isEditMode ? "updated" : "added"}!`, e)
-      alert("Something went wrong!")
+      console.error(`[task-log] Employee has not been ${isEditMode ? 'updated' : 'added'}!`, e)
+      alert('Something went wrong!')
     }
   }
 
   const deleteEmployeeHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    if (window.confirm("Do you really want to delete this employee?")) {
+    if (window.confirm('Do you really want to delete this employee?')) {
       deleteEmployee && deleteEmployee(preData!.id)
       console.log(`[Employee Form] user ${preData?.name} deleted! `)
-      navigate("/", { replace: true })
+      navigate('/', { replace: true })
     }
   }
 
@@ -83,29 +83,29 @@ export const EmployeeForm: FC<EmployeeFormProps> = ({ addEmployee, preData, isEd
       <div>
         <label>
           First name
-          <input className="my-input" type="text" {...register("firstName", validationRules.firstName)} />
+          <input className="my-input" type="text" {...register('firstName', validationRules.firstName)} />
         </label>
         <span className="my-error-input">{errors.firstName?.message}</span>
       </div>
       <div className="my-form-item">
         <label>
           Last name
-          <input className="my-input" type="text" {...register("lastName", validationRules.lastName)} />
+          <input className="my-input" type="text" {...register('lastName', validationRules.lastName)} />
         </label>
         <span className="my-error-input">{errors.lastName?.message}</span>
       </div>
       <div className="my-form-item">
         <label>
           Day of birthday
-          <input className="my-input bg-white" type="date" {...register("birthday", validationRules.birthday)} />
+          <input className="my-input bg-white" type="date" {...register('birthday', validationRules.birthday)} />
         </label>
         <span className="my-error-input">{errors.birthday?.message}</span>
       </div>
       <div className="my-form-item">
         <label>
           Role
-          <select className="my-input bg-white" {...register("role", validationRules.role)}>
-            <option value="">{"<not selected>"}</option>
+          <select className="my-input bg-white" {...register('role', validationRules.role)}>
+            <option value="">{'<not selected>'}</option>
             {rolesList.map((role) => (
               <option key={role} value={role}>
                 {role}
@@ -122,12 +122,12 @@ export const EmployeeForm: FC<EmployeeFormProps> = ({ addEmployee, preData, isEd
             name="phone"
             control={control}
             rules={validationRules.phone}
-            render={({ field }) => <IMaskInput className="my-input" mask={"{+7} (000) 000-0000"} {...field} inputRef={field.ref} />}
+            render={({ field }) => <IMaskInput className="my-input" mask={'{+7} (000) 000-0000'} {...field} inputRef={field.ref} />}
           />
         </label>
         <span className="my-error-input">{errors.phone?.message}</span>
       </div>
-      
+
       {isEditMode && (
         <div className="my-form-item flex items-center">
           <label htmlFor="isArchive"> isArchive &nbsp; </label>
@@ -136,25 +136,19 @@ export const EmployeeForm: FC<EmployeeFormProps> = ({ addEmployee, preData, isEd
             className="w-4 h-4"
             type="checkbox"
             defaultChecked={preData && preData.isArchive}
-            {...register("isArchive")}
+            {...register('isArchive')}
           />
         </div>
       )}
 
-      <div className={`mt-1 flex ${!isEditMode ? "justify-center" : "justify-around"}`}>
+      <div className={`mt-1 flex ${!isEditMode ? 'justify-center' : 'justify-around'}`}>
         <div className="form_submit-button text-center">
-          <button
-            className="my-form-button bg-cyan-600"
-            type="submit"
-          >
-            {isEditMode ? "update employee" : "add employee"}
+          <button className="my-form-button bg-cyan-600" type="submit">
+            {isEditMode ? 'update employee' : 'add employee'}
           </button>
         </div>
         {isEditMode && (
-          <button
-            onClick={deleteEmployeeHandler}
-            className="my-form-button bg-red-600"
-          >
+          <button onClick={deleteEmployeeHandler} className="my-form-button bg-red-600">
             delete employee
           </button>
         )}

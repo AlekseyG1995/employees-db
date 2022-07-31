@@ -1,0 +1,39 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "google",
+        "prettier"
+
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint"
+    ],
+    "rules": {
+      "max-len": ["error", { "code": 140 }],
+      "semi": "off",
+      "linebreak-style": "off",
+      "arrow-parens": "off",
+      "comma-dangle": "off",
+      "object-curly-spacing": "off",
+      "require-jsdoc": "off",
+      "padded-blocks": "warn",
+      "operator-linebreak": "off",
+      "indent": "off",
+      "no-debugger": "warn",
+      "eol-last": "off",
+      "react/react-in-jsx-scope": "off"
+    }
+}

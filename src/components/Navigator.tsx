@@ -1,4 +1,4 @@
-import MyNavLink from "./MyNavLink"
+import MyNavLink from './MyNavLink'
 
 export const Navigator = () => {
   return (

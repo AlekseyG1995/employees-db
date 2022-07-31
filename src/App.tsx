@@ -1,11 +1,11 @@
-import { Routes, Route } from "react-router-dom"
-import { Layout } from "./components/Layout"
-import { AddEmployeePage } from "./pages/AddEmployeePage"
-import { EditorEmployeePage } from "./pages/EditorEmployeePage"
-import { ErrorPage } from "./pages/ErrorPage"
-import { ViewEmployeePage } from "./pages/ViewEmployeePage"
-import { ErrorBoundary } from "react-error-boundary"
-import { ErrorFallback } from "./components/ErrorFallback"
+import { Routes, Route } from 'react-router-dom'
+import { Layout } from './components/Layout'
+import { AddEmployeePage } from './pages/AddEmployeePage'
+import { EditorEmployeePage } from './pages/EditorEmployeePage'
+import { ErrorPage } from './pages/ErrorPage'
+import { ViewEmployeePage } from './pages/ViewEmployeePage'
+import { ErrorBoundary } from 'react-error-boundary'
+import { ErrorFallback } from './components/ErrorFallback'
 
 export const App = () => {
   return (
