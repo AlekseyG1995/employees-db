@@ -57,8 +57,12 @@ export const EmployeeForm: FC<EmployeeFormProps> = ({ addEmployee, preData, isEd
     try {
       const response = !isEditMode ? await addEmployee!(employeeDTO) : await updateEmployee!({ employeeDTO, id: preData!.id })
       console.log(`[task-log] Employee has been ${isEditMode ? "updated" : "added"}!`, response)
-      !isEditMode && reset()
-      !isEditMode && alert('User has been successfully added!')
+      if (!isEditMode) {
+        reset()
+        alert("User has been successfully added!")
+      } else {
+        navigate(-1)
+      }
     } catch (e) {
       console.error(`[task-log] Employee has not been ${isEditMode ? "updated" : "added"}!`, e)
       alert("Something went wrong!")
@@ -66,6 +70,7 @@ export const EmployeeForm: FC<EmployeeFormProps> = ({ addEmployee, preData, isEd
   }
 
   const deleteEmployeeHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
     if (window.confirm("Do you really want to delete this employee?")) {
       deleteEmployee && deleteEmployee(preData!.id)
       console.log(`[Employee Form] user ${preData?.name} deleted! `)

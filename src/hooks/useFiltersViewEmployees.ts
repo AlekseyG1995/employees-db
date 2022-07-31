@@ -1,25 +1,33 @@
 import { useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
-import { casesShowOnPage } from "../config/viewOptions"
 import { IFilters } from "../types/types"
 
 export const useFiltersViewEmployees = (fetchEmployees: (filters: IFilters, preferCacheValue: boolean) => {}) => {
   const [searchParams, setSearchParams] = useSearchParams()
 
+  const defaultFilters: IFilters = {
+    isArchive: false,
+    showOnPage: 0,
+    role: "",
+    page: 1,
+  }
+
   const changeParams = ({ isArchive, page, role, showOnPage }: IFilters): void => {
-    setSearchParams({
-      role,
-      page: String(page),
-      isArchive: String(isArchive),
-      limit: String(showOnPage),
-    })
+    const obj: any = {} 
+    if (role !== defaultFilters.role) obj.role = role
+    if (isArchive !== defaultFilters.isArchive) obj.isArchive = String(isArchive)
+    if (showOnPage !== defaultFilters.showOnPage) {
+      obj.limit = String(showOnPage)
+      obj.page = String(page)
+    }
+    setSearchParams(obj)
   }
 
   const [filters, setFilters] = useState<IFilters>({
-    isArchive: searchParams.has("isArchive") && searchParams.get("isArchive") === "true" ? true : false || false,
-    showOnPage: searchParams.has("limit") ? Number(searchParams.get("limit")) : 0,
-    role: searchParams.get("role") || "",
-    page: Number(searchParams.get("limit")) || 1,
+    isArchive: searchParams.has("isArchive") && searchParams.get("isArchive") === "true" ? true : false || defaultFilters.isArchive,
+    showOnPage: searchParams.has("limit") ? Number(searchParams.get("limit")) : defaultFilters.showOnPage,
+    role: searchParams.get("role") || defaultFilters.role,
+    page: Number(searchParams.get("limit")) || defaultFilters.page,
   })
 
   useEffect(() => {

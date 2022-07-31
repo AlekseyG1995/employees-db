@@ -2,7 +2,7 @@ export interface IEmployee {
   id: number
   name: string
   isArchive: boolean
-  role: string
+  role: "tester"| "frontend"| "backend"
   phone: string
   birthday: string
 }

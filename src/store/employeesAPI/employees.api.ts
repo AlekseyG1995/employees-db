@@ -31,7 +31,7 @@ export const employeesApi = createApi({
         return { employees, totalCount: Number(meta.response.headers.get("X-Total-Count")) }
       },
       providesTags: () => ["Employees"],
-      keepUnusedDataFor: 3
+      keepUnusedDataFor: 3,
     }),
     getOne: build.query<IEmployee, number>({
       query: (id: number) => ({
@@ -70,6 +70,7 @@ export const employeesApi = createApi({
         url: `employees/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Employees", "Employee"],
     }),
   }),
 })

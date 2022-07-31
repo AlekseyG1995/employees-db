@@ -1,12 +1,17 @@
 import { FC } from "react"
 import { Link } from "react-router-dom"
 import { IEmployee } from "../../models/employee.model"
+import { convertToClientFormat } from "../../utils/convertData"
 
 interface EmployeeItemProps {
-  employee : IEmployee
+  employee: IEmployee
 }
 
-export const EmployeeItem:FC<EmployeeItemProps> = ({ employee }) => {
+const colorsRole = {
+  tester: "bg-red-400",
+  backend: "bg-green-500",
+  frontend: "bg-blue-300",
+}
 
 const getAge = (birthday: string) => new Date().getFullYear() - new Date(convertToClientFormat(birthday)).getFullYear()
 
@@ -21,7 +26,7 @@ export const EmployeeItem: FC<EmployeeItemProps> = ({ employee }) => {
             {employee.birthday}
             <span className="italic"> ({getAge(employee.birthday)})</span> 
           </div>
-      <div>{employee.phone}</div>
+          <div>{employee.phone}</div>
         </div>
       </div>
     </Link>
