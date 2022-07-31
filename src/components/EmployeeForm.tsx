@@ -67,52 +67,48 @@ export const EmployeeForm: FC<EmployeeFormProps> = ({ addEmployee, preData, isEd
 
   return (
     <>
-      <form className="form w-[30vw]" action="" onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-firstname">
-          <label className="text-sm">
+      <form className="" action="" onSubmit={handleSubmit(onSubmit)}>
+        <div className="">
+          <label className="">
             First name
             <input
               defaultValue={preData && preData.name.split(" ")[0]}
-              className="block w-full"
+              className="my-input"
               type="text"
               {...register("firstName", validationRules.firstName)}
             />
           </label>
-          {errors.firstName?.message}
+          <span className="my-error-input">{errors.firstName?.message}</span>
         </div>
-        <div className="form_lastname">
-          <label className="text-sm">
+        <div className="my-form-item">
+          <label className="">
             Last name
             <input
               defaultValue={preData && preData.name.split(" ")[1]}
-              className="block w-full"
+              className="my-input"
               type="text"
               {...register("lastName", validationRules.lastName)}
             />
           </label>
-          {errors.lastName?.message}
+          <span className="my-error-input font-thin">{errors.lastName?.message}</span>
         </div>
-        <div className="form_dob">
-          <label className="text-sm">
+        <div className="my-form-item">
+          <label className="">
             Day of birthday
             <input
               defaultValue={preData && convertToClientFormat(preData.birthday)}
-              className="block w-full"
+              className="my-input bg-white"
               type="date"
               {...register("dob", validationRules.dob)}
             />
           </label>
-          {errors.dob?.message}
+          <span className="my-error-input">{errors.dob?.message}</span>
         </div>
-        <div className="form_role">
-          <label className="text-sm">
+        <div className="my-form-item">
+          <label className="">
             Role
-            <select
-              defaultValue={preData ? preData.role : ''}
-              className="block w-full"
-              {...register("role", validationRules.role)}
-            >
-              <option value="">{'<not selected...>'}</option>
+            <select defaultValue={preData ? preData.role : ""} className="my-input bg-white" {...register("role", validationRules.role)}>
+              <option value="">{"<not selected...>"}</option>
               {rolesList.map((role) => (
                 <option key={role} value={role}>
                   {role}
@@ -120,24 +116,24 @@ export const EmployeeForm: FC<EmployeeFormProps> = ({ addEmployee, preData, isEd
               ))}
             </select>
           </label>
-          {errors.role?.message}
+          <span className="my-error-input">{errors.role?.message}</span>
         </div>
-        <div className="form_phone">
-          <label className="text-sm">
+        <div className="my-form-item">
+          <label className="">
             Phone
             <Controller
               name="phone"
               control={control}
               rules={validationRules.phone}
               defaultValue={preData && preData.phone}
-              render={({ field }) => <IMaskInput className="w-full" mask={"{+7} (000) 000-0000"} {...field} inputRef={field.ref} />}
+              render={({ field }) => <IMaskInput className="my-input" mask={"{+7} (000) 000-0000"} {...field} inputRef={field.ref} />}
             />
           </label>
-          {errors.phone?.message}
+          <span className="my-error-input">{errors.phone?.message}</span>
         </div>
 
         {isEditMode && (
-          <div className="form_isArhive">
+          <div className="my-form-item">
             <label>
               isArchive
               <input type="checkbox" defaultChecked={preData && preData.isArchive} {...register("isArchive")} />
@@ -146,8 +142,8 @@ export const EmployeeForm: FC<EmployeeFormProps> = ({ addEmployee, preData, isEd
         )}
 
         <div className="form_submit-button text-center">
-          <button className="border w-[50%]" type="submit">
-            {isEditMode ? "Update" : "add"}
+          <button className="border my-3 py-1.5 px-4 bg-cyan-600 text-white rounded-sm" type="submit">
+            {isEditMode ? "Update employee" : "add employee"}
           </button>
         </div>
         {isEditMode && (
