@@ -11,7 +11,7 @@ export const validationRules = {
       value: true,
     },
   },
-  dob: {
+  birthday: {
     required: {
       message: "Day of birthday is required",
       value: true,

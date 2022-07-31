@@ -18,7 +18,7 @@ const getAge = (birthday: string) => new Date().getFullYear() - new Date(convert
 export const EmployeeItem: FC<EmployeeItemProps> = ({ employee }) => {
   return (
     <Link to={`/edit/${employee.id}`} className="border my-2 relative rounded-md bg-white block">
-      <div className={colorsRole[employee.role].concat(" rounded-sm px-2 absolute right-1 top-1 text-white")}>{employee.role}</div>
+      <div className={`rounded-sm px-2 absolute right-1 top-1 text-white ${colorsRole[employee.role]}`}>{employee.role}</div>
       <div className="py-2 px-1">
         <div className="font-semibold sm:text-xl sm:text-center">{employee.name}</div>
         <div className="flex justify-between">

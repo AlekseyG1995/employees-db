@@ -1,6 +1,6 @@
 import React, { FC } from "react"
 import { useNavigate } from "react-router-dom"
-import { EmployeeForm } from "../components/EmployeeForm"
+import { EmployeeForm } from "../components/employee/EmployeeForm"
 import { Error } from "../components/Error"
 import { useAddMutation } from "../store/employeesAPI/employees.api"
 

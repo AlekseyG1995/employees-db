@@ -7,7 +7,7 @@ interface ErrorFallbackProps {
 
 export const ErrorFallback:FC<ErrorFallbackProps> = ({ error, resetErrorBoundary }) => {
   return (
-    <div className="w-[300px] mx-auto my-10">
+    <div className="w-[300px] mx-auto my-10 border">
       <div role="alert">
         <p>Something went wrong!!!</p>
         <pre>{error.message}</pre>

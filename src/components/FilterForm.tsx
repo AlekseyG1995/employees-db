@@ -26,7 +26,7 @@ export const FilterForm: FC<FilterFormProps> = ({ currentFilter, changeFilters, 
       <div className="basis-2/5">
         <label>
           Sorting by role
-          <select className="my-input  sm:block sm:w-[70%] sm:mx-auto text-sm sm:text-base" defaultValue={currentFilter.role} onChange={selectRoleHandler}>
+          <select className="my-input sm:block sm:w-[70%] sm:mx-auto text-sm sm:text-base" defaultValue={currentFilter.role} onChange={selectRoleHandler}>
             <option value="">All</option>
             {roles.map((role) => (
               <option key={role} value={role}>

@@ -4,7 +4,6 @@ import { IEmployee } from "../../models/employee.model"
 import { IDataFromServer, IFilters, IUpdateParams } from "../../types/types"
 
 const generateParams = (object: IFilters) => {
-  // !!! type any
   const obj: any = {
     isArchive: object.isArchive,
   }

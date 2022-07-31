@@ -10,10 +10,6 @@ interface PaginationProps {
 export const Pagination: FC<PaginationProps> = ({ totalPages, currentPage, setPage, maxButtons = totalPages }) => {
   if (currentPage > totalPages) throw new Error("СurrentPage should be no more than TotalPages")
 
-  const btnClasses = `py-2 px-3 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white`
-
-  const btnClasses_active = `py-2 px-3 leading-tight text-blue-600 bg-blue-50 border border-gray-300 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white`
-
   const btnClasses_disable = " opacity-70 cursor-no-drop"
 
   const generateArrButtons = (current: number, max: number, MAX_BUTTONS: number): number[] => {
@@ -34,27 +30,6 @@ export const Pagination: FC<PaginationProps> = ({ totalPages, currentPage, setPa
       leftDelta--
     }
     return [1, ..._arr.slice(leftDelta, rightDelta), max]
-
-    // const result = [1, Math.max(current - 1, 1), current, Math.min(current + 1, max), max]
-    // switch (true) {
-    //   case current === 1 && max > 2:
-    //     result.push(3)
-    //     if (max > 3) result.push(4)
-    //     break
-    //   case current === 2 && max > 3:
-    //     result.push(4)
-    //     break
-    //   case current === max && max > 2:
-    //     result.push(max - 2)
-    //     if (max > 3) result.push(max - 3)
-    //     break
-    //   case current === max - 1 && max > 3:
-    //     result.push(max - 3)
-    //     break
-    // }
-    // result.sort((a, b) => a - b)
-    // return Array.from(new Set(result))
-    // return result
   }
 
   return (
@@ -64,7 +39,7 @@ export const Pagination: FC<PaginationProps> = ({ totalPages, currentPage, setPa
           <button
           disabled={currentPage === 1}
             onClick={() => setPage(currentPage - 1)}
-            className={(currentPage !== 1 ? [btnClasses, " rounded-l-lg"] : [btnClasses, " rounded-l-lg", btnClasses_disable]).join("")}
+            className={(currentPage !== 1 ? ['my-pagination_btns', " rounded-l-lg"] : ['my-pagination_btns', " rounded-l-lg", btnClasses_disable]).join("")}
           >
             Prev
           </button>
@@ -72,7 +47,7 @@ export const Pagination: FC<PaginationProps> = ({ totalPages, currentPage, setPa
 
         {generateArrButtons(currentPage, totalPages, maxButtons).map((pageNum) => (
           <li key={pageNum}>
-            <button onClick={() => setPage(pageNum)} className={pageNum !== currentPage ? btnClasses : btnClasses_active}>
+            <button onClick={() => setPage(pageNum)} className={pageNum !== currentPage ? 'my-pagination_btns' : 'my-pagination_btn-active'}>
               {pageNum}
             </button>
           </li>
@@ -82,8 +57,8 @@ export const Pagination: FC<PaginationProps> = ({ totalPages, currentPage, setPa
           <button
             disabled={currentPage === totalPages}
             className={(currentPage !== totalPages
-              ? [btnClasses, " rounded-r-lg"]
-              : [btnClasses, " rounded-r-lg", btnClasses_disable]
+              ? ['my-pagination_btns', " rounded-r-lg"]
+              : ['my-pagination_btns', " rounded-r-lg", btnClasses_disable]
             ).join("")}
             onClick={() => setPage(currentPage + 1)}
           >

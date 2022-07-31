@@ -9,7 +9,6 @@ export const Error: FC<ErrorProps> = ({ message }) => {
     <>
       <div className="flex justify-center items-center">
         <svg
-          xmlns="http://www.w3.org/2000/svg"
           className="h-12 w-12 fill-white stroke-red-700"
           fill="none"
           viewBox="0 0 24 24"

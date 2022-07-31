@@ -2,18 +2,15 @@ import MyNavLink from "./MyNavLink"
 
 export const Navigator = () => {
   return (
-    <nav className="flex justify-between items-center min-h-[50px] px-5 shadow-md bg-cyan-700 text-white">
-      <h2 className="text-xl font-bold">Employees DB</h2>
-      <div className="flex items-center">
+    <nav className="my-navigation">
+      <h2 className="my-navigation_title">Employees DB</h2>
+      <div className="my-navigation_menu">
         <MyNavLink className="mr-2 p-1 " to="/">
           View
         </MyNavLink>
         <MyNavLink className="p-1" to="/add">
           Add
         </MyNavLink>
-        {/* <NavLink className={({ isActive }) => `p-1 ${isActive ? "border rounded-md" : ""}`} to="/edit">
-          Edit
-        </NavLink> */}
       </div>
     </nav>
   )
