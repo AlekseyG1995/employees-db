@@ -108,10 +108,11 @@ export const EmployeeForm: FC<EmployeeFormProps> = ({ addEmployee, preData, isEd
           <label className="text-sm">
             Role
             <select
-              defaultValue={preData ? preData.role : rolesList[0]}
+              defaultValue={preData ? preData.role : ''}
               className="block w-full"
               {...register("role", validationRules.role)}
             >
+              <option value="">{'<not selected...>'}</option>
               {rolesList.map((role) => (
                 <option key={role} value={role}>
                   {role}
