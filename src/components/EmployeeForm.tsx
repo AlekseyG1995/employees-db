@@ -60,9 +60,11 @@ export const EmployeeForm: FC<EmployeeFormProps> = ({ addEmployee, preData, isEd
   }
 
   const deleteEmployeeHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-    deleteEmployee && deleteEmployee(preData!.id)
-    console.log("[Employee Form] deleting...")
-    navigate("/", { replace: true })
+    if (window.confirm("Do you really want to delete this employee?")) {
+      deleteEmployee && deleteEmployee(preData!.id)
+      console.log(`[Employee Form] user ${preData?.name} deleted! `)
+      navigate("/", { replace: true })
+    }
   }
 
   return (
