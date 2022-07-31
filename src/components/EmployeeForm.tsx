@@ -133,26 +133,30 @@ export const EmployeeForm: FC<EmployeeFormProps> = ({ addEmployee, preData, isEd
         </div>
 
         {isEditMode && (
-          <div className="my-form-item">
-            <label>
-              isArchive
-              <input type="checkbox" defaultChecked={preData && preData.isArchive} {...register("isArchive")} />
-            </label>
+          <div className="my-form-item flex items-center">
+            <label htmlFor="isArchive"> isArchive &nbsp; </label>
+            <input
+              id="isArchive"
+              className="w-4 h-4"
+              type="checkbox"
+              defaultChecked={preData && preData.isArchive}
+              {...register("isArchive")}
+            />
           </div>
         )}
 
-        <div className="form_submit-button text-center">
-          <button className="border my-3 py-1.5 px-4 bg-cyan-600 text-white rounded-sm" type="submit">
-            {isEditMode ? "Update employee" : "add employee"}
-          </button>
+        <div className={`mt-1 flex ${!isEditMode ? "justify-center" : "justify-around"}`}>
+          <div className="form_submit-button text-center">
+            <button className="border my-3 py-1.5 px-4 bg-cyan-600 text-white rounded-sm" type="submit">
+              {isEditMode ? "update employee" : "add employee"}
+            </button>
+          </div>
+          {isEditMode && (
+            <button onClick={deleteEmployeeHandler} className="border my-3 py-1.5 px-4 bg-red-600 text-white rounded-sm">
+              delete employee
+            </button>
+          )}
         </div>
-        {isEditMode && (
-          // <div className="mt-3">
-          <button onClick={deleteEmployeeHandler} className="border w-full bg-red-600">
-            delete employee
-          </button>
-          // </div>
-        )}
       </form>
     </>
   )

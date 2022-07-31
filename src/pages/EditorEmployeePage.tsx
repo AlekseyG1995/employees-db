@@ -16,12 +16,16 @@ export const EditorEmployeePage: FC = () => {
   if (isError) return <Error/>
 
   return (
-    <div>
-      <h2 className="text-2xl font-bold">Edit employee</h2>
+    <div className="w-[90%] sm:w-[50%] mx-auto">
+      <div className="my-2">
+        <button onClick={() => navigate(-1)} className=" absolute border rounded-xl py-1 px-3">
+          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+        </button>
+        <h2 className="pt-1 text-xl font-bold text-center "> Edit employee</h2>
+      </div>
       <EmployeeForm updateEmployee={updateEmployee} isEditMode preData={data} deleteEmployee={deleteEmployee}></EmployeeForm>
-      <button onClick={() => navigate(-1)} className="border">
-        Go back
-      </button>
     </div>
   )
 }
