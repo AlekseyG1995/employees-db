@@ -1,5 +1,3 @@
-// !!!! все дефолты объявлять в useForm
-
 import { rolesList } from "../models/rolesList"
 import { useForm, SubmitHandler, Controller } from "react-hook-form"
 import { validationRules } from "../utils/validationRules"
@@ -39,7 +37,15 @@ export const EmployeeForm: FC<EmployeeFormProps> = ({ addEmployee, preData, isEd
     reset,
     formState: { errors },
     control,
-  } = useForm<IFormInputs>()
+  } = useForm<IFormInputs>({
+    defaultValues: {
+      firstName: preData && preData.name.split(" ")[0],
+      lastName: preData && preData.name.split(" ")[1],
+      role:preData ? preData.role : "",
+      dob: preData && convertToClientFormat(preData.birthday),
+      phone: preData && preData.phone,
+    },
+  })
   const onSubmit: SubmitHandler<IFormInputs> = async (data: IFormInputs) => {
     const employeeDTO: IEmployeeDTO = {
       name: `${data.firstName} ${data.lastName}`,
@@ -69,47 +75,32 @@ export const EmployeeForm: FC<EmployeeFormProps> = ({ addEmployee, preData, isEd
 
   return (
     <>
-      <form className="" action="" onSubmit={handleSubmit(onSubmit)}>
-        <div className="">
-          <label className="">
+      <form action="" onSubmit={handleSubmit(onSubmit)}>
+        <div>
+          <label>
             First name
-            <input
-              defaultValue={preData && preData.name.split(" ")[0]}
-              className="my-input"
-              type="text"
-              {...register("firstName", validationRules.firstName)}
-            />
+            <input className="my-input" type="text" {...register("firstName", validationRules.firstName)} />
           </label>
           <span className="my-error-input">{errors.firstName?.message}</span>
         </div>
         <div className="my-form-item">
-          <label className="">
+          <label>
             Last name
-            <input
-              defaultValue={preData && preData.name.split(" ")[1]}
-              className="my-input"
-              type="text"
-              {...register("lastName", validationRules.lastName)}
-            />
+            <input className="my-input" type="text" {...register("lastName", validationRules.lastName)} />
           </label>
           <span className="my-error-input font-thin">{errors.lastName?.message}</span>
         </div>
         <div className="my-form-item">
-          <label className="">
+          <label>
             Day of birthday
-            <input
-              defaultValue={preData && convertToClientFormat(preData.birthday)}
-              className="my-input bg-white"
-              type="date"
-              {...register("dob", validationRules.dob)}
-            />
+            <input className="my-input bg-white" type="date" {...register("dob", validationRules.dob)} />
           </label>
           <span className="my-error-input">{errors.dob?.message}</span>
         </div>
         <div className="my-form-item">
-          <label className="">
+          <label>
             Role
-            <select defaultValue={preData ? preData.role : ""} className="my-input bg-white" {...register("role", validationRules.role)}>
+            <select className="my-input bg-white" {...register("role", validationRules.role)}>
               <option value="">{"<not selected...>"}</option>
               {rolesList.map((role) => (
                 <option key={role} value={role}>
@@ -121,13 +112,12 @@ export const EmployeeForm: FC<EmployeeFormProps> = ({ addEmployee, preData, isEd
           <span className="my-error-input">{errors.role?.message}</span>
         </div>
         <div className="my-form-item">
-          <label className="">
+          <label>
             Phone
             <Controller
               name="phone"
               control={control}
               rules={validationRules.phone}
-              defaultValue={preData && preData.phone}
               render={({ field }) => <IMaskInput className="my-input" mask={"{+7} (000) 000-0000"} {...field} inputRef={field.ref} />}
             />
           </label>
@@ -149,12 +139,18 @@ export const EmployeeForm: FC<EmployeeFormProps> = ({ addEmployee, preData, isEd
 
         <div className={`mt-1 flex ${!isEditMode ? "justify-center" : "justify-around"}`}>
           <div className="form_submit-button text-center">
-            <button className="border hover:opacity-80 text-sm sm:text-base uppercase my-3 py-1.5 px-4 bg-cyan-600 text-white rounded-sm" type="submit">
+            <button
+              className="border hover:opacity-80 text-sm sm:text-base uppercase my-3 py-1.5 px-4 bg-cyan-600 text-white rounded-sm"
+              type="submit"
+            >
               {isEditMode ? "update employee" : "add employee"}
             </button>
           </div>
           {isEditMode && (
-            <button onClick={deleteEmployeeHandler} className="border hover:opacity-80 text-sm sm:text-base uppercase my-3 py-1.5 px-4 bg-red-600 text-white rounded-sm">
+            <button
+              onClick={deleteEmployeeHandler}
+              className="border hover:opacity-80 text-sm sm:text-base uppercase my-3 py-1.5 px-4 bg-red-600 text-white rounded-sm"
+            >
               delete employee
             </button>
           )}
