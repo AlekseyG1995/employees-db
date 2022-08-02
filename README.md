@@ -61,3 +61,20 @@ _Требования к исходному коду_
 - **Docker**
 
 В качестве backend используется **Json-server**
+
+### Внешний вид
+
+- главная страница
+
+![image](https://user-images.githubusercontent.com/107615724/182362567-e4e6593b-0ef5-48e5-842d-69a901ed8d0a.png)
+
+- добавление 
+
+![image](https://user-images.githubusercontent.com/107615724/182362921-0fe19644-7c95-4eea-ab11-0ada775f51bf.png)
+
+- редактирование
+
+![image](https://user-images.githubusercontent.com/107615724/182363094-43499d39-41c0-4aa5-9cd6-af7489d6d9f2.png)
+
+
+
