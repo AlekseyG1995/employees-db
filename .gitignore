@@ -24,7 +24,7 @@ yarn-error.log*
 
 ## my
 
-Dockerfile
-Makefile
-.dockerignore
 .vscode
+docker-run
+index.testbuild.css
+Makefile
